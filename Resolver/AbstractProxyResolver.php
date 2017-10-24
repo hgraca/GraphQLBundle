@@ -11,6 +11,7 @@
 
 namespace Overblog\GraphQLBundle\Resolver;
 
+use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class AbstractProxyResolver extends AbstractResolver
@@ -33,7 +34,8 @@ abstract class AbstractProxyResolver extends AbstractResolver
         }
 
         $alias = $input[0];
-        $funcArgs = $input[1];
+        /** @var Argument $funcArgs */
+        $funcArgs = $input[1][0];
 
         $solution = $this->getSolution($alias);
 
@@ -44,7 +46,7 @@ abstract class AbstractProxyResolver extends AbstractResolver
         $options = $this->getSolutionOptions($alias);
         $func = [$solution, $options['method']];
 
-        return call_user_func_array($func, $funcArgs);
+        return call_user_func_array($func, $funcArgs->getRawArguments());
     }
 
     abstract protected function unresolvableMessage($alias);
