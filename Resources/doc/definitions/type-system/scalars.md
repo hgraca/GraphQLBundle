@@ -43,9 +43,9 @@ class DateTimeType
     }
  
     /**
-     * @param mixed $value
+     * @param string $value
      *
-     * @return mixed
+     * @return DateTime
      */
     public static function parseValue($value)
     {
@@ -55,7 +55,7 @@ class DateTimeType
     /**
      * @param Node $valueNode
      *
-     * @return string
+     * @return DateTime
      */
     public static function parseLiteral($valueNode)
     {
